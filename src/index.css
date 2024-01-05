@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Rubik:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Delius&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --main-color: #3e6541;
+  --light-main-color: #3e654177;
+  --second-color: #7db170;
+  --third-color: #e1ece1;
+}
+html {
+  scroll-behavior: smooth;
+}
+.dir-rtl {
+  direction: rtl;
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+.custom-button {
+  @apply bg-[--main-color] p-2 rounded text-white
+ }
+
+.max-container {
+  @apply w-[90%] max-sm:w-[98%] max-md:w-[95%] max-lg:w-[92%] max-xl:w-[90%] mx-auto max-w-[1400px]
+}
+
+.nav-item>a {
+  @apply text-[--main-color] font-medium pb-1 transition-all
+}
+
+.nav-item>a.active {
+  @apply font-bold border-b-2 border-[--main-color]
+}
+
+.mobile-nav-item {
+  @apply block py-2 px-8 text-white uppercase text-sm tracking-wide
+}
+.mobile-nav-item.active {
+  @apply bg-gradient-to-r from-[#5c8253] to-[#7db170] rounded-md
+}
+
+.form-input {
+  @apply border border-gray-300 py-2 px-4 rounded focus:outline-none focus:ring focus:ring-[--light-main-color] transition-all focus:pl-5 font-delius;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
