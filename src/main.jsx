@@ -17,7 +17,7 @@ axios.defaults.headers = {
 	...axios.defaults.headers,
 	'Content-Type': axios.defaults.headers['Content-Type'] || 'application/json',
 }
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || "https://mercypharm-backend.cyclic.app"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<BrowserRouter>
