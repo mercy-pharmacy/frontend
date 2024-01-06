@@ -3,8 +3,8 @@ import { useCategoriesContext } from '../Context/CategoriesProvider'
 import { useEffect } from 'react'
 import { useLoadingContext } from '../Context/LoadingProvider'
 import { Link } from 'react-router-dom'
-import { translate } from "../services/translate"
-import { useTranslation } from "react-i18next"
+import { translate } from '../services/translate'
+import { useTranslation } from 'react-i18next'
 const About = () => {
 	const { getAllCategories, categories } = useCategoriesContext()
 	const { loading, withLoading } = useLoadingContext()
@@ -22,30 +22,43 @@ const About = () => {
 			animate={{ opacity: 1, x: 0 }}
 			transition={{ ease: 'easeOut', duration: 0.4 }}
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
+			className="flex flex-col"
+			style={{ minHeight: 'calc(100vh - 60px)' }}
 		>
 			{/* image */}
 			<motion.div
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ delay: 0.4 }}
-				className={`h-[200px] md:h-[300px] lg:h-[400px] transition-all duration-1000`}
+				initial={{ opacity: 0, y: -200 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.4, delay: 0.2 }}
+				// className={`h-[200px] md:h-[300px] lg:h-[400px] transition-all duration-1000`}
+				className="flex-1 h-full p-2  min-h-[200px] md:min-h-[300px] lg:min-h-[400px]"
 				style={{
-					backgroundImage: "url('/public/images/basic/about-bg.jpg')",
+					backgroundImage: "url('/images/basic/about-bg.jpg')",
 					backgroundPosition: 'center',
 					backgroundSize: 'cover',
 					backgroundRepeat: 'no-repeat',
 				}}
 			></motion.div>
 
-			<div className="max-container">
+			<div className="max-container my-4">
 				{/* Into */}
 				<div className="my-10">
-					<h1
+					<motion.h1
+						initial={{ opacity: 0, y: -200 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.5 }}
 						className={`text-[--main-color] font-rubik text-4xl pb-2 border-b-2 border-[--second-color] w-fit mb-5 font-semibold`}
 					>
 						{t('about.title')}
-					</h1>
-					<p className={`text-[--main-color] text-lg font-medium`}>{t('about.desc')}</p>
+					</motion.h1>
+					<motion.p
+						initial={{ opacity: 0, x: -200 }}
+						animate={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.6 }}
+						className={`text-[--main-color] text-lg font-medium`}
+					>
+						{t('about.desc')}
+					</motion.p>
 				</div>
 
 				{/* categories */}
@@ -80,8 +93,12 @@ const About = () => {
 										className="py-4 flex flex-col gap-3 items-center transition-hover duration-300 hover:bg-[--second-color] text-[--main-color] rounded-md"
 									>
 										<img src={url} alt="" className="w-56 h-72 object-cover rounded-md" />
-										<p className="font-delius text-2xl text-center font-semibold">{translate(language, name_en, name_ar)}</p>
-										<p className="font-rubik text-sm text-center max-w-xs">{translate(language, description_en, description_ar)}</p>
+										<p className="font-delius text-2xl text-center font-semibold">
+											{translate(language, name_en, name_ar)}
+										</p>
+										<p className="font-rubik text-sm text-center max-w-xs">
+											{translate(language, description_en, description_ar)}
+										</p>
 										<Link
 											to={`/category/${_id}`}
 											className={`relative text-lg font-delius border-b border-[--main-color] pb-1 block w-14  text-left  group text-[--main-color]`}

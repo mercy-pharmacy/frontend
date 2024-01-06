@@ -69,7 +69,7 @@ const Home = () => {
 					transition={{ duration: 0.4 }}
 					className={`flex-[5] `}
 					style={{
-						backgroundImage: "url('/public/images/basic/home-bg.jpg')",
+						backgroundImage: "url('/images/basic/home-bg.jpg')",
 						backgroundPosition: 'center',
 						backgroundSize: 'cover',
 						backgroundRepeat: 'no-repeat',

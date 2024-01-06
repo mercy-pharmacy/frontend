@@ -70,9 +70,9 @@ const Contact = () => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					transition={{ delay: 0.4 }}
-					className="flex-1 h-full border p-2 relative min-h-[200px]"
+					className="flex-1 h-full p-2 relative min-h-[200px]"
 					style={{
-						backgroundImage: "url('/public/images/basic/contact-bg.jpg')",
+						backgroundImage: "url('/images/basic/contact-bg.jpg')",
 						backgroundPosition: 'center',
 						backgroundSize: 'cover',
 						backgroundRepeat: 'no-repeat',
