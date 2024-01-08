@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FiMenu } from 'react-icons/fi'
 import { IoClose } from 'react-icons/io5'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/logo.svg'
 import useClickOutside from '../hooks/useClickOutside'
 import SearchAndLanguages from './SearchAndLanguages'
-import { useTranslation } from 'react-i18next'
 
 const Navbar = () => {
 	const [showNav, setShowNav] = useState(false)
@@ -24,7 +24,7 @@ const Navbar = () => {
 			<motion.nav
 				initial={{ opacity: 0, y: -100 }}
 				animate={{ opacity: 1, y: 0 }}
-				className="max-container flex items-center justify-between max-sm:px-3 font-delius"
+				className="h-full max-container flex items-center justify-between max-sm:px-3 "
 			>
 				{/* Toggle Button */}
 				<button onClick={toggle} className="md:hidden text-2xl">
@@ -33,7 +33,7 @@ const Navbar = () => {
 				{/* logo */}
 				<div className="max-md:self-center">
 					<Link to={'/'}>
-						<img src={logo} alt="Logo" className="w-40 aspect-[25/9] object-contain" />
+						<img src={logo} alt="Logo" className="w-40 max-md:w-32 h-full aspect-[25/9] object-contain" />
 					</Link>
 				</div>
 				{/* nav items */}
@@ -96,7 +96,7 @@ const MobileNav = ({ showNav, toggle, setShowNav }) => {
 const DesktopNav = () => {
 	const { t } = useTranslation()
 	return (
-		<ul className="hidden md:flex flex-wrap items-center gap-5 ">
+		<ul className="flex-1 hidden md:flex flex-wrap items-center justify-center  gap-5 lg:gap-16 ">
 			<li className="nav-item">
 				<NavLink to={'/'}>{t('navlinks.home')}</NavLink>
 			</li>

@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion'
-import { socials } from '../constants/data'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { useTranslation } from "react-i18next"
+import { socials } from '../constants/data'
 
 const Contact = () => {
-	const {t, i18n: {language}} = useTranslation()
+	const {
+		t,
+		i18n: { language },
+	} = useTranslation()
 	return (
 		<motion.div
 			initial={{ opacity: 0, x: 300 }}
@@ -13,7 +16,10 @@ const Contact = () => {
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
 		>
 			{/* layout */}
-			<div className="flex flex-col" style={{ minHeight: 'calc(100vh - 60px)' }}>
+			<div
+				className="flex flex-col justify-between gap-10 relative"
+				style={{ minHeight: 'calc(100vh - 60px)' }}
+			>
 				{/* content */}
 				<div className="max-container my-4">
 					{/* title */}
@@ -22,15 +28,20 @@ const Contact = () => {
 							initial={{ opacity: 0, y: -200 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.5 }}
-							className={`text-6xl font-bold border-b-2 border-[--main-color] w-fit mx-auto mb-3 pb-2 text-[--main-color] font-itim`}
+							className={`text-5xl max-md:text-4xl font-bold w-fit mx-auto mb-5 pb-2 text-[--main-color] uppercase relative`}
 						>
 							{t('contact.title')}
+							<img
+								src="/images/basic/line.svg"
+								alt="line"
+								className={`h-[40px] !w-full absolute -bottom-[20px] left-0 right-0  -z-10 object-center object-cover`}
+							/>
 						</motion.h1>
 						<motion.p
 							initial={{ opacity: 0, y: 200 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6 }}
-							className="text-[--main-color] font-medium font-rubik"
+							className="text-[--main-color] font-medium  max-md:text-sm"
 						>
 							{t('contact.desc.first')}
 							<br />
@@ -38,7 +49,7 @@ const Contact = () => {
 						</motion.p>
 					</div>
 					{/* socials */}
-					<div className="flex items-center justify-center flex-wrap gap-7">
+					<div className="flex items-center justify-center flex-wrap gap-7 max-md:flex-col">
 						{socials.map((item, i) => {
 							const { icon: Icon, link, title } = item
 							return (
@@ -47,10 +58,11 @@ const Contact = () => {
 									animate={{ opacity: 1 }}
 									transition={{ delay: (0.1 + i) * 0.3 }}
 									key={i}
+									className="max-md:w-full"
 								>
 									<Link
 										to={link}
-										className="max-sm:w-full flex flex-col items-center gap-2 group"
+										className="flex flex-col items-center gap-2 group max-md:flex-row max-md:justify-center max-md:border max-md:w-fit max-md:mx-auto max-md:p-3 max-md:rounded-lg max-md:border-[--main-color] max-md:min-w-[200px]"
 										target="_blank"
 									>
 										<Icon
@@ -58,7 +70,12 @@ const Contact = () => {
 											color="var(--main-color)"
 											className="transition-all group-hover:!text-[--second-color]"
 										/>
-										<p className="text-[--main-color] font-delius font-semibold">{title}</p>
+										<p
+											className="text-[--main-color]  font-semibold max-md:
+										flex-1"
+										>
+											{title}
+										</p>
 									</Link>
 								</motion.div>
 							)
@@ -67,20 +84,26 @@ const Contact = () => {
 				</div>
 				{/* image */}
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ delay: 0.4 }}
-					className="flex-1 h-full p-2 relative min-h-[200px]"
-					style={{
-						backgroundImage: "url('/images/basic/contact-bg.jpg')",
-						backgroundPosition: 'center',
-						backgroundSize: 'cover',
-						backgroundRepeat: 'no-repeat',
-					}}
+					initial={{ opacity: 0, y: 100 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.4, delay: 0.2 }}
+					className=" h-[200px] md:h-[300px] lg:h-[500px]"
 				>
-					{/* overlay */}
-					<div className="absolute inset-0 bg-black/25"></div>
+					<img
+						src="/images/basic/contact-bg.jpg"
+						alt=""
+						className="w-full h-full object-cover object-center"
+					/>
 				</motion.div>
+				{/* branch */}
+				<motion.img
+					initial={{ opacity: 0, x: -300 }}
+					animate={{ opacity: 1, x: 0 }}
+					transition={{ delay: 0.4, duration: 0.4 }}
+					src="/images/basic/branch.svg"
+					alt="branch"
+					className="absolute top-0 w-40 left-10 !rotate-90  hidden md:block"
+				/>
 			</div>
 		</motion.div>
 	)

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { useSubcategoriesContext } from '../../Context/SubcategoriesProvider'
-import { useLoadingContext } from '../../Context/LoadingProvider'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
+import InputItem from '../../Components/InputItem'
 import SelectItem from '../../Components/SelectItem'
 import { useCategoriesContext } from '../../Context/CategoriesProvider'
-import toast from 'react-hot-toast'
-import InputItem from '../../Components/InputItem'
+import { useLoadingContext } from '../../Context/LoadingProvider'
+import { useSubcategoriesContext } from '../../Context/SubcategoriesProvider'
 
 const UpdateSubcategory = () => {
 	const { currentSubcategory, getSubcategory, updateSubcategory } = useSubcategoriesContext()
@@ -50,7 +50,7 @@ const UpdateSubcategory = () => {
 			animate={{ opacity: 1, x: 0 }}
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
 		>
-			<h1 className="text-3xl text-center font-delius">Create New SubCategory</h1>
+			<h1 className="text-3xl text-center ">Create New SubCategory</h1>
 
 			<form className="mt-7 flex flex-col gap-4" onSubmit={handleUpdateSubCategory}>
 				<InputItem

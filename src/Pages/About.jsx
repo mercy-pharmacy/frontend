@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { useCategoriesContext } from '../Context/CategoriesProvider'
 import { useEffect } from 'react'
-import { useLoadingContext } from '../Context/LoadingProvider'
-import { Link } from 'react-router-dom'
-import { translate } from '../services/translate'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import { useCategoriesContext } from '../Context/CategoriesProvider'
+import { useLoadingContext } from '../Context/LoadingProvider'
+import { translate } from '../services/translate'
 const About = () => {
 	const { getAllCategories, categories } = useCategoriesContext()
 	const { loading, withLoading } = useLoadingContext()
@@ -40,22 +40,27 @@ const About = () => {
 				}}
 			></motion.div>
 
-			<div className="max-container my-4">
+			<div className="max-container my-4 ">
 				{/* Into */}
 				<div className="my-10">
 					<motion.h1
 						initial={{ opacity: 0, y: -200 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5 }}
-						className={`text-[--main-color] font-rubik text-4xl pb-2 border-b-2 border-[--second-color] w-fit mb-5 font-semibold`}
+						className={`text-[--main-color] font-bold text-4xl pb-2 w-fit mb-5 max-md:mx-auto max-md:text-3xl max-md:text-center relative`}
 					>
 						{t('about.title')}
+						<img
+							src="/images/basic/line.svg"
+							alt="line"
+							className={`h-[40px] !w-full absolute -bottom-[20px] left-0 right-0  -z-10 object-center object-cover`}
+						/>
 					</motion.h1>
 					<motion.p
 						initial={{ opacity: 0, x: -200 }}
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.6 }}
-						className={`text-[--main-color] text-lg font-medium`}
+						className={`text-[--main-color] text-lg font-medium max-md:text-[16px]`}
 					>
 						{t('about.desc')}
 					</motion.p>
@@ -65,10 +70,10 @@ const About = () => {
 				<div className="my-10">
 					{/* title */}
 					<div className="text-center mb-10">
-						<h2 className="text-[--main-color] font-rubik font-semibold text-2xl pb-1 mb-1 border-b-2 border-[--second-color] w-fit mx-auto">
+						<h2 className="text-[--main-color]  font-semibold text-2xl pb-1 mb-1 border-b-2 border-[--second-color] w-fit mx-auto">
 							{t('about.secondTitle.main')}
 						</h2>
-						<p className="text-[--main-color] text-sm font-itim">{t('about.secondTitle.second')}</p>
+						<p className="text-[--main-color] text-sm">{t('about.secondTitle.second')}</p>
 					</div>
 					{/* items */}
 					{loading.getAllCategories ? (
@@ -90,18 +95,18 @@ const About = () => {
 										whileInView={{ opacity: 1 }}
 										transition={{ delay: (i + 1) * 0.1, duration: 0.5 }}
 										key={_id}
-										className="py-4 flex flex-col gap-3 items-center transition-hover duration-300 hover:bg-[--second-color] text-[--main-color] rounded-md"
+										className="p-4 flex flex-col gap-3 items-center transition-hover duration-300 hover:bg-[--second-color] text-[--main-color] rounded-md"
 									>
-										<img src={url} alt="" className="w-56 h-72 object-cover rounded-md" />
-										<p className="font-delius text-2xl text-center font-semibold">
+										<img src={url} alt="" className="h-72 object-cover rounded-md max-md:!w-full" />
+										<p className=" text-2xl text-center font-semibold capitalize">
 											{translate(language, name_en, name_ar)}
 										</p>
-										<p className="font-rubik text-sm text-center max-w-xs">
+										<p className=" text-sm text-center max-w-xs">
 											{translate(language, description_en, description_ar)}
 										</p>
 										<Link
 											to={`/category/${_id}`}
-											className={`relative text-lg font-delius border-b border-[--main-color] pb-1 block w-14  text-left  group text-[--main-color]`}
+											className={`relative text-lg  border-b border-[--main-color] pb-1 block w-14  text-left  group text-[--main-color]`}
 										>
 											<span className="group-hover:tracking-wider transition-all">{t('more')}</span>
 											<div

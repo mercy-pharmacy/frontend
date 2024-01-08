@@ -23,7 +23,7 @@ const AddKeywords = ({ keywords, setKeywords }) => {
 
 	return (
 		<div className="flex items-stretch gap-3 max-md:flex-col max-md:gap-1">
-			<span className="flex-1 font-rubik">Keywords</span>
+			<span className="flex-1">Keywords</span>
 			<div className="flex-[3]">
 				{/* Add */}
 				<div className="flex items-stretch gap-2 flex-wrap">

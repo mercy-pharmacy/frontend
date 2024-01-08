@@ -11,11 +11,6 @@ export const socials = [
 		link: 'https://www.google.com',
 		title: 'Email',
 	},
-	// {
-	// 	icon: FaPhone,
-	// 	link: 'https://www.whatsapp.com',
-	// 	title: '+970594999303',
-	// },
 	{
 		icon: FaInstagram,
 		link: 'https://www.instagram.com',

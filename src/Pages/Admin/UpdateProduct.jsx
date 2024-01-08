@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { useParams } from 'react-router-dom'
 import AddKeywords from '../../Components/AddKeywords'
+import InputItem from "../../Components/InputItem"
 import SelectItem from '../../Components/SelectItem'
 import { useLoadingContext } from '../../Context/LoadingProvider'
 import { useProductsContext } from '../../Context/ProductsProvider'
 import { useSubcategoriesContext } from '../../Context/SubcategoriesProvider'
-import { useParams } from 'react-router-dom'
-import InputItem from "../../Components/InputItem"
 const UpdateProduct = () => {
 	const { id } = useParams()
 
@@ -63,7 +63,7 @@ const UpdateProduct = () => {
 			animate={{ opacity: 1, x: 0 }}
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
 		>
-			<h1 className="text-3xl text-center font-delius">Update Product</h1>
+			<h1 className="text-3xl text-center ">Update Product</h1>
 
 			<form className="mt-7 flex flex-col gap-4" onSubmit={handleUpdateProduct}>
 				<InputItem
@@ -108,7 +108,7 @@ const UpdateProduct = () => {
 				<AddKeywords keywords={keywords} setKeywords={setKeywords} />
 
 				<div className="flex items-stretch gap-3 max-md:flex-col max-md:gap-1">
-					<span className="flex-1 font-rubik">Product image</span>
+					<span className="flex-1 ">Product image</span>
 
 					<div className="flex-[3] flex flex-col gap-2 items-center justify-center max-md:items-start">
 						<input

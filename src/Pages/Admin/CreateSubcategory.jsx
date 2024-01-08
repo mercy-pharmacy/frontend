@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion'
-import React, { useEffect, useState } from 'react'
-import { IoMdArrowDropdown } from 'react-icons/io'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import InputItem from "../../Components/InputItem"
+import SelectItem from '../../Components/SelectItem'
 import { useCategoriesContext } from '../../Context/CategoriesProvider'
 import { useLoadingContext } from '../../Context/LoadingProvider'
 import { useSubcategoriesContext } from '../../Context/SubcategoriesProvider'
-import toast from 'react-hot-toast'
-import SelectItem from '../../Components/SelectItem'
-import InputItem from "../../Components/InputItem"
 
 const CreateSubcategory = () => {
 	const { loading, withLoading } = useLoadingContext()
@@ -36,7 +35,7 @@ const CreateSubcategory = () => {
 			animate={{ opacity: 1, x: 0 }}
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
 		>
-			<h1 className="text-3xl text-center font-delius">Create New SubCategory</h1>
+			<h1 className="text-3xl text-center ">Create New SubCategory</h1>
 
 			<form className="mt-7 flex flex-col gap-4" onSubmit={handleCreateSubCategory}>
 				<InputItem name={'name_en'} text={'English name'} onChange={handleChangeInput} required />

@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Itim&family=Rubik:wght@300;400;500;600;700;800&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Delius&family=Source+Code+Pro:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,6 +10,10 @@
   --light-main-color: #3e654177;
   --second-color: #7db170;
   --third-color: #e1ece1;
+}
+::selection {
+  background: var(--main-color);
+  color: var(--second-color);
 }
 html {
   scroll-behavior: smooth;
@@ -32,7 +35,7 @@ html {
 }
 
 .nav-item>a {
-  @apply text-[--main-color] font-medium pb-1 transition-all
+  @apply text-[--main-color] pb-1 transition-all uppercase text-sm
 }
 
 .nav-item>a.active {
@@ -47,7 +50,7 @@ html {
 }
 
 .form-input {
-  @apply border border-gray-300 py-2 px-4 rounded focus:outline-none focus:ring focus:ring-[--light-main-color] transition-all focus:pl-5 font-delius;
+  @apply border border-gray-300 py-2 px-4 rounded focus:outline-none focus:ring focus:ring-[--light-main-color] transition-all focus:pl-5 ;
 }
 
 .categories-grid {

@@ -4,9 +4,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				rubik: ['Rubik', 'sans-serif'],
-				itim: ['Itim', 'cursive'],
-				delius: ['Delius', 'cursive']
+				gill: ['Gill Sans MT', 'Gill Sans', 'sans-serif'],
 			},
 		},
 	},

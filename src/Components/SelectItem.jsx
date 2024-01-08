@@ -26,12 +26,12 @@ const SelectItem = ({
 		setShowDrop(false)
 	}
 
-	if (loading.getItems == true) return <h1 className="font-rubik text-3xl text-center">Loading...</h1>
+	if (loading.getItems == true) return <h1 className=" text-3xl text-center">Loading...</h1>
 	else if (loading.getItems == undefined) return null
 
 	return (
 		<div className="flex items-stretch gap-1 max-md:flex-col max-md:gap-1">
-			<span className="flex-1 font-rubik">{title}</span>
+			<span className="flex-1 ">{title}</span>
 
 			<div className="flex-[3] ">
 				{/* selected option */}
@@ -50,7 +50,7 @@ const SelectItem = ({
 									className="w-[50px] h-[50px] object-cover"
 								/>
 							)}
-							<p className="flex-[4] font-itim p-2">{selectedItem?.name_en}</p>
+							<p className="flex-[4] p-2">{selectedItem?.name_en}</p>
 						</div>
 					) : (
 						<span className="select-none p-2">{title}</span>
@@ -86,7 +86,7 @@ const SelectItem = ({
 										className="w-[50px] h-[50px] object-cover"
 									/>
 								)}
-								<p className="font-itim p-2">
+								<p className="p-2">
 									{item?.name_en}
 									{item?.categoryId && <span className="text-gray-600 text-sm"> ({item?.categoryId?.name_en})</span>}
 								</p>

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
+import InputItem from '../../Components/InputItem'
 import { useCategoriesContext } from '../../Context/CategoriesProvider'
 import { useLoadingContext } from '../../Context/LoadingProvider'
-import InputItem from '../../Components/InputItem'
 
 const CreateCategory = () => {
 	const { loading, withLoading } = useLoadingContext()
@@ -31,7 +31,7 @@ const CreateCategory = () => {
 			animate={{ opacity: 1, x: 0 }}
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
 		>
-			<h1 className="text-3xl text-center font-delius">Create New Category</h1>
+			<h1 className="text-3xl text-center ">Create New Category</h1>
 
 			<form className="mt-7 flex flex-col gap-4" onSubmit={handleCreateCategory}>
 				<InputItem name={'name_en'} text={'English name'} onChange={handleChangeInput} required />
@@ -50,7 +50,7 @@ const CreateCategory = () => {
 				/>
 
 				<div className="flex items-stretch gap-3 max-md:flex-col max-md:gap-1">
-					<span className="flex-1 font-rubik">Category image</span>
+					<span className="flex-1 ">Category image</span>
 
 					<div className="flex-[3] flex flex-col gap-2 items-center justify-center max-md:items-start">
 						<input

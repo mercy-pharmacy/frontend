@@ -41,7 +41,7 @@ const AdminCategories = () => {
 			{/* categories */}
 			<>
 				{categories?.length == 0 ? (
-					<h1 className="text-2xl font-rubik text-center mt-20">No Categories.</h1>
+					<h1 className="text-2xl  text-center mt-20">No Categories.</h1>
 				) : (
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 						{categories?.map((cate, i) => (
@@ -89,7 +89,7 @@ const Category = ({ category, index }) => {
 			/>
 			{/* content */}
 			<div className="p-2 flex flex-col flex-1">
-				<h2 className="text-lg font-medium font-rubik mb-2">{category?.name_en}</h2>
+				<h2 className="text-lg font-medium  mb-2">{category?.name_en}</h2>
 				<p className="mb-3 text-sm text-gray-500 flex-1">
 					{category.description_en?.split('\n').map((line, i) => (
 						<span key={i} className="block">

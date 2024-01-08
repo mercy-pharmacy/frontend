@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import { useLoadingContext } from '../Context/LoadingProvider'
-import { useCategoriesContext } from '../Context/CategoriesProvider'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import { useCategoriesContext } from '../Context/CategoriesProvider'
+import { useLoadingContext } from '../Context/LoadingProvider'
 import { translate } from '../services/translate'
 
 const Products = () => {
@@ -24,9 +24,7 @@ const Products = () => {
 	else if (loading.getAllCategories == undefined) return null
 
 	if (categories?.length == 0)
-		return (
-			<h1 className="max-container text-center mt-10 text-3xl font-bold font-delius">No Categories.</h1>
-		)
+		return <h1 className="max-container text-center mt-10 text-3xl font-bold ">No Categories.</h1>
 
 	return (
 		<motion.div>
@@ -37,15 +35,20 @@ const Products = () => {
 						initial={{ opacity: 0, y: -200 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.5 }}
-						className={`text-6xl font-bold border-b-2 border-[--main-color] w-fit mx-auto mb-3 pb-2 text-[--main-color] font-itim`}
+						className={`text-5xl max-md:text-4xl font-bold  w-fit mx-auto mb-3 pb-2 text-[--main-color] uppercase relative`}
 					>
 						{t('products.title')}
+						<img
+							src="/images/basic/line.svg"
+							alt="line"
+							className={`h-[40px] !w-full absolute -bottom-[20px] left-0 right-0  -z-10 object-center object-cover`}
+						/>
 					</motion.h1>
 					<motion.p
 						initial={{ opacity: 0, y: 200 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.6 }}
-						className="text-[--main-color] font-medium font-rubik"
+						className="text-[--main-color] font-medium  max-md:text-sm"
 					>
 						{t('products.pageDesc')}
 					</motion.p>
@@ -88,7 +91,7 @@ const Category = ({ category, index }) => {
 					initial={{ opacity: 0, y: 100 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.7 }}
-					className={`text-5xl max-md:text-3xl pb-2 border-b-2 font-rubik ${
+					className={`text-5xl max-md:text-3xl pb-2 border-b-2 uppercase  ${
 						isOdd ? 'border-[--main-color]' : 'border-white'
 					}`}
 				>
@@ -99,7 +102,7 @@ const Category = ({ category, index }) => {
 					initial={{ opacity: 0, x: 100 }}
 					animate={{ opacity: 1, x: 0 }}
 					transition={{ duration: 0.8 }}
-					className={`text-[19px] max-md:text-[17px] leading-7 font-medium font-itim`}
+					className={`text-[19px] max-md:text-[17px] leading-7 font-medium`}
 				>
 					{translate(language, category?.description_en, category?.description_ar, true)}
 				</motion.p>
@@ -112,7 +115,7 @@ const Category = ({ category, index }) => {
 				>
 					<Link
 						to={`/category/${category?._id}`}
-						className={`relative text-2xl max-md:text-lg font-delius border-b pb-1 block w-full  text-left  ${
+						className={`relative text-2xl max-md:text-lg  border-b pb-1 block w-full  text-left  ${
 							isOdd ? 'border-[--main-color]' : 'border-white'
 						} group`}
 					>
@@ -130,13 +133,15 @@ const Category = ({ category, index }) => {
 				initial={{ opacity: 0, x: isOdd ? -400 : 400 }}
 				animate={{ opacity: 1, x: 0 }}
 				transition={{ duration: 0.8 }}
-				className="md:flex-[2]  max-md:h-[200px]"
+				className="md:flex-[2] h-[450px] max-md:h-[300px] object-center "
 			>
-				<img
-					src={category?.image?.secure_url}
-					alt={category?.name_en}
-					className={`h-full object-cover max-w-full w-full`}
-				/>
+				<Link to={`/category/${category?._id}`}>
+					<img
+						src={category?.image?.secure_url}
+						alt={category?.name_en}
+						className={`h-full object-cover max-w-full w-full`}
+					/>
+				</Link>
 			</motion.div>
 		</motion.div>
 	)

@@ -21,6 +21,7 @@ import Contact from './Pages/Contact'
 import Home from './Pages/Home'
 import Products from './Pages/Products'
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 function App() {
 	const { auth } = useAuthContext()
@@ -34,7 +35,13 @@ function App() {
 			<Toaster position="bottom-left" />
 			<Navbar />
 			<AnimatePresence mode="wait">
-				<div className={`mt-[60px] overflow-hidden`} dir={language == 'ar' ? 'rtl' : 'ltr'}>
+				<div
+					className={`mt-[60px] overflow-hidden`}
+					dir={language == 'ar' ? 'rtl' : 'ltr'}
+					style={{
+						fontFamily: language == 'en' ? "'Gill Sans MT', sans-serif" : "'El Messiri', sans-serif",
+					}}
+				>
 					<Routes location={location} key={location.pathname}>
 						<Route index element={<Home />} />
 						<Route path="/about" element={<About />} />

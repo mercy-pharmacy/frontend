@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion'
-import { useParams } from 'react-router-dom'
-import { useCategoriesContext } from '../Context/CategoriesProvider'
 import { useEffect } from 'react'
-import { useLoadingContext } from '../Context/LoadingProvider'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
 import 'swiper/css/grid'
-import { EffectCoverflow, Pagination, Navigation, EffectFade, Grid } from 'swiper/modules'
-import { useTranslation } from 'react-i18next'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { EffectCoverflow, EffectFade, Grid, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { useCategoriesContext } from '../Context/CategoriesProvider'
+import { useLoadingContext } from '../Context/LoadingProvider'
 import { translate } from '../services/translate'
 
 const Category = () => {
@@ -48,8 +48,8 @@ const Category = () => {
 					className="w-full h-[200px] md:h-[300px] lg:h-[400px] object-cover"
 				/>
 				{/* overlay */}
-				<div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-					<h1 className=" text-3xl md:text-5xl font-itim text-gray-400">
+				<div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+					<h1 className="text-3xl md:text-5xl uppercase font-bold text-white tracking-widest">
 						{translate(language, currentCategory?.name_en, currentCategory?.name_ar)}
 					</h1>
 				</div>
@@ -64,7 +64,7 @@ const Category = () => {
 							})}
 						</>
 					) : (
-						<h1 className="text-2xl text-center font-rubik mt-8">{t('category.noSubcategories')}</h1>
+						<h1 className="text-2xl text-center  mt-8">{t('category.noSubcategories')}</h1>
 					)}
 				</div>
 			</div>
@@ -80,9 +80,17 @@ const Subcategory = ({ subcategory, index }) => {
 	} = useTranslation()
 	return (
 		<div className="my-6 relative">
-			<h2 className="mb-5 text-3xl md:text-4xl font-semibold font-rubik text-center text-[--main-color] pb-2 border-b-2 border-[--main-color] w-fit mx-auto">
+			<h2 className="mb-2 text-3xl md:text-4xl font-semibold  text-center text-[--main-color] w-fit mx-auto relative pb-3">
 				{translate(language, subcategory?.name_en, subcategory?.name_ar)}
+				<img
+					src="/images/basic/line.svg"
+					alt="line"
+					className={`h-[20px] !w-full absolute -bottom-[10px] left-0 right-0  -z-10 object-center object-cover`}
+				/>
 			</h2>
+			{subcategory?.description_en && (
+				<p className="mb-5 text-lg text-center text-[--main-color] w-fit mx-auto ">{translate(language, subcategory?.description_en, subcategory?.description_ar)}</p>
+			)}
 
 			<SubProducts subcategory={subcategory} />
 		</div>
@@ -102,8 +110,9 @@ const SubProducts = ({ subcategory }) => {
 			grabCursor={true}
 			effect="coverflow"
 			breakpoints={{
-				320: { spaceBetween: 20 },
-				768: { spaceBetween: matchedLength ? 50 : 20 },
+				320: { spaceBetween: 20, slidesPerView: 'auto' },
+				768: { spaceBetween: matchedLength ? 50 : 20, slidesPerView: 'auto' },
+				992: { spaceBetween: matchedLength ? 50 : 20, slidesPerView: 3 },
 			}}
 			coverflowEffect={
 				matchedLength
@@ -116,7 +125,6 @@ const SubProducts = ({ subcategory }) => {
 					  }
 					: false
 			}
-			slidesPerView={'auto'}
 		>
 			{subcategory?.products?.map((pro, i) => (
 				<SwiperSlide key={pro._id} className="w-[320px]" id={pro._id}>
@@ -137,13 +145,13 @@ const Product = ({ product, index }) => {
 				<img
 					src={product?.image?.secure_url}
 					alt=""
-					className="mx-auto h-48 object-cover mb-4 rounded-md"
+					className="mx-auto h-64 object-cover mb-4 rounded-md"
 				/>
-				<h3 className="font-rubik font-semibold text-xl text-[--main-color] pt-4 border-t border-[--main-color]">
+				<h3 className=" font-semibold text-xl text-[--main-color] pt-4 border-t border-[--main-color]">
 					{translate(language, product?.name_en, product?.name_ar)}
 				</h3>
 				{product?.description_en && (
-					<p className="text-[--main-color] text-sm font-delius mt-5 max-w-xs mx-auto">
+					<p className="text-[--main-color] text-sm  mt-5 max-w-xs mx-auto">
 						{translate(language, product?.description_en, product?.description_ar, true)}
 					</p>
 				)}

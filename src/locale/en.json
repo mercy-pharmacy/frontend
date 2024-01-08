@@ -3,7 +3,7 @@
         "navlinks": {
             "home": "Home",
             "products": "Products",
-            "about": "About",
+            "about": "About Us",
             "contact": "Contact"
         },
         "home": {
@@ -23,7 +23,7 @@
         },
         "about": {
             "title": "WHO WE ARE ?",
-            "desc": "Introducing Mercy Pharm your destination for natural health and beauty. We offer a wide range of high-quality, ethically sourced products that will enhance your natural beauty while nourishing your skin. At Mercy Pharm, we understand the importance of using natural ingredients that are gentle yet effective. Our carefully curated selection includes organic skincare , face and hair products. In addition to our medical line that derive its strength from natural sources. Our team of experts is dedicated to developing innovative and effective solutions that promote healthy, radiant skin and deliver visible results with a commitment. Experience the Mercy Pharm difference with a commitment to excellence and customer satisfaction.",
+            "desc": "Introducing Mercy Pharm your destination for natural health and beauty. We offer a wide range of high-quality, ethically sourced products that will enhance your natural beauty while nourishing your skin. At Mercy Pharm, we understand the importance of using natural ingredients that are gentle yet effective. Our carefully curated selection includes organic skincare , face and hair products. In addition to our medical line that derive its strength from natural sources. Our team of experts is dedicated to developing innovative and effective solutions that promote healthy, radiant skin and deliver visible results with a commitment to excellence and customer satisfaction.",
             "secondTitle": {
                 "main": "Experience the Mercy Pharm difference",
                 "second": "A variety of skincare and wellness products for a healthy version of you!"

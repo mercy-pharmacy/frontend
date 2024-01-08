@@ -78,7 +78,7 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 						<input
 							type="text"
 							placeholder="Search..."
-							className="form-input !px-1 !py-[0.5px] flex-1"
+							className="form-input !px-1 !py-[0.5px] flex-1 !w-40 focus:!w-48 focus:!ring-1"
 							onFocus={() => setShowSearchResult(true)}
 							value={search}
 							onChange={e => setSearch(e.target.value)}
@@ -121,14 +121,14 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 														<h2 className="font-bold">
 															{translate(language, pro?.name_en, pro?.name_ar)}
 														</h2>
-														<p className="text-gray-500 font-itim">
+														<p className="text-gray-500">
 															{translate(
 																language,
 																pro?.subcategoryId?.name_en,
 																pro?.subcategoryId?.name_ar,
 															)}
 														</p>
-														<p className="text-gray-500 font-itim">
+														<p className="text-gray-500">
 															{translate(
 																language,
 																pro?.subcategoryId?.categoryId?.name_en,
