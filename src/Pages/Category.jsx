@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import 'swiper/css'
@@ -7,16 +7,18 @@ import 'swiper/css/effect-coverflow'
 import 'swiper/css/grid'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import { EffectCoverflow, EffectFade, Grid, Navigation, Pagination } from 'swiper/modules'
+import { EffectCoverflow, EffectFade, Grid, Navigation, Pagination, Zoom } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useCategoriesContext } from '../Context/CategoriesProvider'
 import { useLoadingContext } from '../Context/LoadingProvider'
 import { translate } from '../services/translate'
+import useClickOutside from '../hooks/useClickOutside'
 
 const Category = () => {
 	const { id } = useParams()
 	const { getCategory, currentCategory } = useCategoriesContext()
 	const { withLoading, loading } = useLoadingContext()
+	const { subcategories } = currentCategory
 	const {
 		t,
 		i18n: { language },
@@ -32,7 +34,6 @@ const Category = () => {
 		)
 	else if (loading.getCategory == undefined) return null
 
-	const { subcategories } = currentCategory
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 300 }}
@@ -49,19 +50,22 @@ const Category = () => {
 				/>
 				{/* overlay */}
 				<div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-					<h1 className="text-3xl md:text-5xl uppercase font-bold text-white tracking-widest">
+					<h1 className="text-3xl md:text-5xl uppercase font-bold text-white">
 						{translate(language, currentCategory?.name_en, currentCategory?.name_ar)}
 					</h1>
 				</div>
 			</div>
+
 			<div className="max-container">
 				{/* subcategories */}
 				<div className="flex flex-col gap-1 md:gap-5">
 					{subcategories?.length > 0 ? (
 						<>
-							{subcategories?.map((sub, i) => {
-								return <Subcategory index={i} subcategory={sub} key={sub._id} />
-							})}
+							{subcategories
+								?.sort((a, b) => b.sort_order - a.sort_order)
+								?.map((sub, i) => {
+									return <Subcategory index={i} subcategory={sub} key={sub._id} />
+								})}
 						</>
 					) : (
 						<h1 className="text-2xl text-center  mt-8">{t('category.noSubcategories')}</h1>
@@ -78,9 +82,14 @@ const Subcategory = ({ subcategory, index }) => {
 	const {
 		i18n: { language },
 	} = useTranslation()
+	const othersCondition = subcategory?.name_en?.trim() == 'others'
 	return (
 		<div className="my-6 relative">
-			<h2 className="mb-2 text-3xl md:text-4xl font-semibold  text-center text-[--main-color] w-fit mx-auto relative pb-3">
+			<h2
+				className={`mb-2 text-3xl md:text-4xl font-semibold  text-center text-[--main-color] w-fit mx-auto relative pb-3 ${
+					othersCondition && 'hidden'
+				}`}
+			>
 				{translate(language, subcategory?.name_en, subcategory?.name_ar)}
 				<img
 					src="/images/basic/line.svg"
@@ -89,49 +98,79 @@ const Subcategory = ({ subcategory, index }) => {
 				/>
 			</h2>
 			{subcategory?.description_en && (
-				<p className="mb-5 text-lg text-center text-[--main-color] w-fit mx-auto ">{translate(language, subcategory?.description_en, subcategory?.description_ar)}</p>
+				<p className={`mb-5 text-lg text-center text-[--main-color] w-fit mx-auto`}>
+					{translate(language, subcategory?.description_en, subcategory?.description_ar)}
+				</p>
 			)}
 
-			<SubProducts subcategory={subcategory} />
+			<SubProducts subcategory={subcategory} othersCondition={othersCondition} />
 		</div>
 	)
 }
 
-const SubProducts = ({ subcategory }) => {
+const SubProducts = ({ subcategory, othersCondition }) => {
 	const matchedLength = subcategory?.products?.length > 3
+
+	if (othersCondition) {
+		return (
+			<div className="px-4 xs:px-20 grid gap-4 md:gap-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+				{subcategory?.products
+					?.sort((a, b) => b.sort_order - a.sort_order)
+					?.map((pro, i) => (
+						<Product index={i} product={pro} key={pro._id} />
+					))}
+			</div>
+		)
+	}
+
 	return (
-		<Swiper
-			modules={[Navigation, Pagination, EffectFade, EffectCoverflow, Grid]}
-			navigation={matchedLength ? true : false}
-			loop={true}
-			centeredSlides={true}
-			dir="ltr"
-			className="p-4 pb-12 items-stretch"
-			grabCursor={true}
-			effect="coverflow"
-			breakpoints={{
-				320: { spaceBetween: 20, slidesPerView: 'auto' },
-				768: { spaceBetween: matchedLength ? 50 : 20, slidesPerView: 'auto' },
-				992: { spaceBetween: matchedLength ? 50 : 20, slidesPerView: 3 },
-			}}
-			coverflowEffect={
-				matchedLength
-					? {
-							rotate: 0,
-							stretch: 0,
-							depth: 70,
-							modifier: 2.5,
-							slideShadows: false,
-					  }
-					: false
-			}
-		>
-			{subcategory?.products?.map((pro, i) => (
-				<SwiperSlide key={pro._id} className="w-[320px]" id={pro._id}>
-					<Product index={i} product={pro} />
-				</SwiperSlide>
-			))}
-		</Swiper>
+		<>
+			<Swiper
+				modules={[Navigation, Pagination, EffectFade, EffectCoverflow, Grid, Zoom]}
+				navigation={true}
+				// centeredSlides={matchedLength}
+				dir="ltr"
+				className="p-4 pb-12 items-stretch"
+				grabCursor={true}
+				effect="coverflow"
+				zoom={{ toggle: true, maxRatio: 3 }}
+				breakpoints={{
+					0: { spaceBetween: 20, slidesPerView: 1, loop: false, centeredSlides: false },
+					480: { spaceBetween: 20, slidesPerView: 'auto', loop: false, centeredSlides: false },
+					768: {
+						spaceBetween: matchedLength ? 50 : 20,
+						slidesPerView: 'auto',
+						centeredSlides: matchedLength,
+						loop: matchedLength,
+					},
+					992: {
+						spaceBetween: matchedLength ? 50 : 20,
+						slidesPerView: 3,
+						loop: matchedLength,
+						centeredSlides: matchedLength,
+					},
+				}}
+				coverflowEffect={
+					matchedLength
+						? {
+								rotate: 0,
+								stretch: 0,
+								depth: 70,
+								modifier: 1.5,
+								slideShadows: false,
+						  }
+						: false
+				}
+			>
+				{subcategory?.products
+					?.sort((a, b) => b.sort_order - a.sort_order)
+					?.map((pro, i) => (
+						<SwiperSlide key={pro._id} className="w-[280px]" id={pro._id}>
+							<Product index={i} product={pro} />
+						</SwiperSlide>
+					))}
+			</Swiper>
+		</>
 	)
 }
 
@@ -139,14 +178,21 @@ const Product = ({ product, index }) => {
 	const {
 		i18n: { language },
 	} = useTranslation()
+
+	const [hoverImage, setHoverImage] = useState(false)
+
 	return (
 		<>
-			<div className="p-4 shadow-lg rounded-md text-center bg-[--third-color]">
+			<div className="min-h-[450px] p-4 shadow-lg rounded-md text-center bg-[--third-color]">
 				<img
 					src={product?.image?.secure_url}
-					alt=""
-					className="mx-auto h-64 object-cover mb-4 rounded-md"
+					alt="product image"
+					className={`mx-auto h-64 object-cover mb-4 rounded-md transition-all ${
+						hoverImage == true && 'scale-150'
+					}`}
+					onClick={() => setHoverImage(p => !p)}
 				/>
+
 				<h3 className=" font-semibold text-xl text-[--main-color] pt-4 border-t border-[--main-color]">
 					{translate(language, product?.name_en, product?.name_ar)}
 				</h3>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useParams } from 'react-router-dom'
 import AddKeywords from '../../Components/AddKeywords'
-import InputItem from "../../Components/InputItem"
+import InputItem from '../../Components/InputItem'
 import SelectItem from '../../Components/SelectItem'
 import { useLoadingContext } from '../../Context/LoadingProvider'
 import { useProductsContext } from '../../Context/ProductsProvider'
@@ -94,6 +94,13 @@ const UpdateProduct = () => {
 					textarea
 					defaultValue={currentProduct?.description_ar}
 				/>
+				<InputItem
+					name={'sort_order'}
+					text={'Sort Order'}
+					onChange={handleChangeInput}
+					type="number"
+					defaultValue={currentProduct?.sort_order}
+				/>
 
 				<SelectItem
 					getItems={getSubcategories}
@@ -139,5 +146,3 @@ const UpdateProduct = () => {
 }
 
 export default UpdateProduct
-
- 

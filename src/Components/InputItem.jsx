@@ -1,10 +1,10 @@
-const InputItem = ({ name, text, onChange, textarea, ...props }) => {
+const InputItem = ({ name, text, onChange, textarea, type = 'text', ...props }) => {
 	return (
 		<label htmlFor={name} className="flex items-stretch gap-3 max-md:flex-col max-md:gap-1">
 			<span className="flex-1 ">{text}</span>
 			{textarea ? (
 				<textarea
-					type="text"
+					type={type}
 					placeholder={`${text}...`}
 					name={name}
 					id={name}
@@ -14,7 +14,7 @@ const InputItem = ({ name, text, onChange, textarea, ...props }) => {
 				/>
 			) : (
 				<input
-					type="text"
+					type={type}
 					placeholder={`${text}...`}
 					name={name}
 					id={name}

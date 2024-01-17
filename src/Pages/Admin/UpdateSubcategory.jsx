@@ -82,6 +82,14 @@ const UpdateSubcategory = () => {
 					defaultValue={currentSubcategory?.description_ar}
 				/>
 
+				<InputItem
+					name={'sort_order'}
+					text={'Sort Order'}
+					onChange={handleChangeInput}
+					type="number"
+					defaultValue={currentSubcategory?.sort_order}
+				/>
+
 				<SelectItem
 					getItems={getAllCategories}
 					items={categories}

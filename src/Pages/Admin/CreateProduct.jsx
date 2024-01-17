@@ -64,6 +64,13 @@ const CreateProduct = () => {
 					onChange={handleChangeInput}
 					textarea
 				/>
+				<InputItem
+					name={'sort_order'}
+					text={'Sort Order'}
+					onChange={handleChangeInput}
+					type="number"
+					defaultValue={0}
+				/>
 
 				<SelectItem
 					getItems={getSubcategories}

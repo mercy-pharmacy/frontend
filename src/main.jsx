@@ -16,7 +16,7 @@ axios.defaults.headers = {
 	'Content-Type': axios.defaults.headers['Content-Type'] || 'application/json',
 }
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
-console.log(import.meta.env.VITE_BASE_URL)
+
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<BrowserRouter>
 		<Routes>

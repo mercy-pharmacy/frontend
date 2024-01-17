@@ -62,6 +62,13 @@ const UpdateCategory = () => {
 						textarea
 						defaultValue={currentCategory?.description_ar}
 					/>
+					<InputItem
+						name={'sort_order'}
+						text={'Sort Order'}
+						onChange={handleChangeInput}
+						type="number"
+						defaultValue={currentCategory?.sort_order}
+					/>
 					<div className="flex items-stretch gap-3 max-md:flex-col max-md:gap-1">
 						<span className="flex-1 ">Category image</span>
 

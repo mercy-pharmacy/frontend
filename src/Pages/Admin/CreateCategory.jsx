@@ -48,6 +48,13 @@ const CreateCategory = () => {
 					onChange={handleChangeInput}
 					textarea
 				/>
+				<InputItem
+					name={'sort_order'}
+					text={'Sort Order'}
+					onChange={handleChangeInput}
+					type="number"
+					defaultValue={0}
+				/>
 
 				<div className="flex items-stretch gap-3 max-md:flex-col max-md:gap-1">
 					<span className="flex-1 ">Category image</span>

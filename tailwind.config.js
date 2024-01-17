@@ -6,6 +6,9 @@ export default {
 			fontFamily: {
 				gill: ['Gill Sans MT', 'Gill Sans', 'sans-serif'],
 			},
+			screens: {
+				'xs': '480px', 
+			}
 		},
 	},
 	plugins: [],

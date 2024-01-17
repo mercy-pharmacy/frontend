@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { MdAdd, MdDelete, MdEdit } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useLoadingContext } from '../../Context/LoadingProvider'
 import { useProductsContext } from '../../Context/ProductsProvider'
-
+import { FiFilter } from "react-icons/fi"
+import { GrClear } from "react-icons/gr"
 const AdminProducts = () => {
 	const { products, getProducts, setProducts } = useProductsContext()
 	const { withLoading, loading } = useLoadingContext()
-
-	useEffect(() => {
+	const getAllProducts = () => {
 		withLoading(
 			() =>
 				getProducts(null, data => {
@@ -18,7 +19,17 @@ const AdminProducts = () => {
 				}),
 			'getProducts',
 		)
+	}
+
+	useEffect(() => {
+		getAllProducts(null)
 	}, [])
+
+	const filterProducts = text => {
+		getProducts(text, data => {
+			setProducts(data.products)
+		})
+	}
 
 	if (loading.getProducts === true)
 		return <div className="mx-auto rounded-full w-10 h-10 border-r-2 border-black animate-spin"></div>
@@ -30,11 +41,12 @@ const AdminProducts = () => {
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}
-				className="flex justify-end"
+				className="flex items-center justify-between gap-4 max-sm:flex-col"
 			>
+				<AdminFilter items={products} setItems={setProducts} filterMethod={filterProducts} />
 				<Link
 					to={'/admin/create-product'}
-					className="w-fit border-2 border-[--main-color] flex items-center text-[--main-color] py-1 px-2 rounded mb-5 hover:bg-[--main-color] hover:text-white transition-all"
+					className="border-2 border-[--main-color] flex items-center py-1 px-2 text-[--main-color] rounded hover:bg-[--main-color] hover:text-white transition-all max-sm:w-full max-sm:justify-center"
 				>
 					<p>Add</p>
 					<MdAdd className="text-2xl" />
@@ -45,7 +57,7 @@ const AdminProducts = () => {
 			{products?.length == 0 ? (
 				<h1 className="text-2xl  text-center mt-10">No Products.</h1>
 			) : (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10">
 					{products?.map((product, i) => (
 						<Product product={product} index={i} key={product._id} />
 					))}
@@ -56,6 +68,41 @@ const AdminProducts = () => {
 }
 
 export default AdminProducts
+
+export const AdminFilter = ({ filterMethod }) => {
+	const [text, setText] = useState('')
+	const handleFilter = e => {
+		e.preventDefault()
+		if (!text) return toast.error('Please add somting', { position: 'bottom-center' })
+		filterMethod(text)
+	}
+	const handleClear = e => {
+		e.preventDefault()
+		filterMethod(null)
+		setText('')
+	}
+	return (
+		<form className="flex-1 flex items-center gap-2 w-full" onSubmit={handleFilter}>
+			<div className="flex items-center gap-2">
+				<button className="custom-button !bg-cyan-600 flex items-center gap-1" type="submit">
+					<span className="max-md:hidden">Filter</span>
+					<FiFilter/>
+				</button>
+				<button onClick={handleClear} className={`custom-button !bg-green-500 flex items-center gap-1`} type="button">
+					<span className="max-md:hidden">Clear</span>
+					<GrClear />
+				</button>
+			</div>
+			<input
+				type={'text'}
+				placeholder={`Filter Products...`}
+				onChange={e => setText(e.target.value)}
+				value={text}
+				className={`form-input flex-1 w-[50px]`}
+			/>
+		</form>
+	)
+}
 
 const Product = ({ product, index }) => {
 	const { withLoading, loading } = useLoadingContext()

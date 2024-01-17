@@ -55,9 +55,11 @@ const Products = () => {
 				</div>
 
 				<div className="flex flex-col gap-4">
-					{categories?.map((cate, i) => (
-						<Category category={cate} index={i + 1} key={cate._id} />
-					))}
+					{[...categories]
+						?.sort((a, b) => b.sort_order - a.sort_order)
+						?.map((cate, i) => (
+							<Category category={cate} index={i + 1} key={cate._id} />
+						))}
 				</div>
 			</div>
 		</motion.div>
@@ -95,7 +97,9 @@ const Category = ({ category, index }) => {
 						isOdd ? 'border-[--main-color]' : 'border-white'
 					}`}
 				>
-					{translate(language, category?.name_en, category?.name_ar)}
+					<Link to={`/category/${category?._id}`}>
+						{translate(language, category?.name_en, category?.name_ar)}
+					</Link>
 				</motion.h2>
 				{/* Description */}
 				<motion.p

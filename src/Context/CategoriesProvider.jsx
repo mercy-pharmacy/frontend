@@ -13,6 +13,8 @@ const CategoriesProvider = ({ children }) => {
 
 	const [categories, setCategories] = useState([])
 	const [currentCategory, setCurrentCategory] = useState({})
+	const [lightboxOpen, setLightboxOpen] = useState(false)
+	const [lightboxIndex, setLightboxIndex] = useState(0)
 
 	function getAllCategories(callback) {
 		return asyncHandler(async () => {
@@ -92,6 +94,11 @@ const CategoriesProvider = ({ children }) => {
 				getCategory,
 				updateCategory,
 				deleteCategory,
+				lightboxIndex,
+				setLightboxIndex,
+				lightboxOpen,
+				setLightboxOpen
+
 			}}
 		>
 			{children}
@@ -112,6 +119,10 @@ export const useCategoriesContext = () => {
 		getCategory,
 		updateCategory,
 		deleteCategory,
+		lightboxIndex,
+		setLightboxIndex,
+		lightboxOpen,
+		setLightboxOpen
 	} = useContext(CategoriesContext)
 	return {
 		categories,
@@ -123,5 +134,9 @@ export const useCategoriesContext = () => {
 		getCategory,
 		updateCategory,
 		deleteCategory,
+		lightboxIndex,
+		setLightboxIndex,
+		lightboxOpen,
+		setLightboxOpen
 	}
 }

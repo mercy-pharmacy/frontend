@@ -80,42 +80,46 @@ const About = () => {
 						<div className="w-10 h-10 border-2 rounded-full border-r-0 border-[--main-color] mx-auto animate-spin"></div>
 					) : (
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-2">
-							{categories?.map((cate, i) => {
-								const {
-									name_en,
-									name_ar,
-									image: { secure_url: url },
-									description_ar,
-									description_en,
-									_id,
-								} = cate
-								return (
-									<motion.div
-										initial={{ opacity: 0 }}
-										whileInView={{ opacity: 1 }}
-										transition={{ delay: (i + 1) * 0.1, duration: 0.5 }}
-										key={_id}
-										className="p-4 flex flex-col gap-3 items-center transition-hover duration-300 hover:bg-[--second-color] text-[--main-color] rounded-md"
-									>
-										<img src={url} alt="" className="h-72 object-cover rounded-md max-md:!w-full" />
-										<p className=" text-2xl text-center font-semibold capitalize">
-											{translate(language, name_en, name_ar)}
-										</p>
-										<p className=" text-sm text-center max-w-xs">
-											{translate(language, description_en, description_ar)}
-										</p>
-										<Link
-											to={`/category/${_id}`}
-											className={`relative text-lg  border-b border-[--main-color] pb-1 block w-14  text-left  group text-[--main-color]`}
+							{categories
+								?.sort((a, b) => b.sort_order - a.sort_order)
+								?.map((cate, i) => {
+									const {
+										name_en,
+										name_ar,
+										image: { secure_url: url },
+										description_ar,
+										description_en,
+										_id,
+									} = cate
+									return (
+										<motion.div
+											initial={{ opacity: 0 }}
+											whileInView={{ opacity: 1 }}
+											transition={{ delay: (i + 1) * 0.1, duration: 0.5 }}
+											key={_id}
+											className="p-4 flex flex-col gap-3 items-center transition-hover duration-300 hover:bg-[--second-color] text-[--main-color] rounded-md"
 										>
-											<span className="group-hover:tracking-wider transition-all">{t('more')}</span>
-											<div
-												className={`w-5 h-5 rounded-full border border-[--main-color] absolute right-[-10px] bottom-[-10px] group-hover:w-6 group-hover:h-6 group-hover:right-[-12px] group-hover:bottom-[-12px] transition-all text-[--main-color]`}
-											></div>
-										</Link>
-									</motion.div>
-								)
-							})}
+											<Link to={`/category/${_id}`}>
+												<img src={url} alt="" className="h-72 object-cover rounded-md max-md:!w-full" />
+											</Link>
+											<Link to={`/category/${_id}`} className=" text-2xl text-center font-semibold capitalize">
+												{translate(language, name_en, name_ar)}
+											</Link>
+											<p className=" text-sm text-center max-w-xs">
+												{translate(language, description_en, description_ar)}
+											</p>
+											<Link
+												to={`/category/${_id}`}
+												className={`relative text-lg  border-b border-[--main-color] pb-1 block w-14  text-left  group text-[--main-color]`}
+											>
+												<span className="group-hover:tracking-wider transition-all">{t('more')}</span>
+												<div
+													className={`w-5 h-5 rounded-full border border-[--main-color] absolute right-[-10px] bottom-[-10px] group-hover:w-6 group-hover:h-6 group-hover:right-[-12px] group-hover:bottom-[-12px] transition-all text-[--main-color]`}
+												></div>
+											</Link>
+										</motion.div>
+									)
+								})}
 						</div>
 					)}
 				</div>
