@@ -5,14 +5,30 @@ import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { useLoadingContext } from '../../Context/LoadingProvider'
 import { useSubcategoriesContext } from '../../Context/SubcategoriesProvider'
+import { AdminFilter } from "./AdminProducts"
 
 const AdminSubcategories = () => {
-	const { getSubcategories, subcategories } = useSubcategoriesContext()
+	const { getSubcategories, subcategories, setSubcategories } = useSubcategoriesContext()
 	const { withLoading, loading } = useLoadingContext()
 
 	useEffect(() => {
 		withLoading(() => getSubcategories(), 'getSubcategories')
 	}, [])
+
+	const filterSubCategories = text => {
+		getSubcategories(data => {
+			const allSubcateogries = [...data.subcategories]
+			if (text) {
+				const regexp = new RegExp(text, 'i')
+				const filterSubs = allSubcateogries.filter(sub => {
+					return regexp.test(sub?.name_en)
+				})
+				setSubcategories(filterSubs)
+			} else {
+				setSubcategories(allSubcateogries)
+			}
+		})
+	}
 
 	if (loading.getSubcategories === true)
 		return <div className="mx-auto rounded-full w-10 h-10 border-r-2 border-black animate-spin"></div>
@@ -24,11 +40,12 @@ const AdminSubcategories = () => {
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}
-				className="flex justify-end"
+				className="flex items-center justify-between gap-4 max-sm:flex-col"
 			>
+				<AdminFilter filterMethod={filterSubCategories}/>
 				<Link
 					to={'/admin/create-subcategory'}
-					className="w-fit border-2 border-[--main-color] flex items-center text-[--main-color] py-1 px-2 rounded mb-5 hover:bg-[--main-color] hover:text-white transition-all"
+					className="border-2 border-[--main-color] flex items-center py-1 px-2 text-[--main-color] rounded hover:bg-[--main-color] hover:text-white transition-all max-sm:w-full max-sm:justify-center"
 				>
 					<p>Add</p>
 					<MdAdd className="text-2xl" />

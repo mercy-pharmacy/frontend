@@ -8,7 +8,6 @@ const Modal = ({ open, setOpen, children }) => {
 	if (open == false) return null
 
 	return (
-		// modal
 		<ModalOverlay>
 			<ModalContent closeModal={closeModal}>{children}</ModalContent>
 		</ModalOverlay>

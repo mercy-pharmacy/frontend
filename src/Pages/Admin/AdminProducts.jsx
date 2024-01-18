@@ -43,7 +43,7 @@ const AdminProducts = () => {
 				transition={{ duration: 0.5 }}
 				className="flex items-center justify-between gap-4 max-sm:flex-col"
 			>
-				<AdminFilter items={products} setItems={setProducts} filterMethod={filterProducts} />
+				<AdminFilter filterMethod={filterProducts} />
 				<Link
 					to={'/admin/create-product'}
 					className="border-2 border-[--main-color] flex items-center py-1 px-2 text-[--main-color] rounded hover:bg-[--main-color] hover:text-white transition-all max-sm:w-full max-sm:justify-center"
