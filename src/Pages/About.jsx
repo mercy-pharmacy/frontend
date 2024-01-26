@@ -13,7 +13,7 @@ const About = () => {
 		i18n: { language },
 	} = useTranslation()
 	useEffect(() => {
-		withLoading(() => getAllCategories(), 'getAllCategories')
+		withLoading(() => getAllCategories({}), 'getAllCategories')
 	}, [])
 
 	return (

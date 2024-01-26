@@ -13,7 +13,7 @@ const AdminCategories = () => {
 
 	useEffect(() => {
 		withLoading(() => {
-			return getAllCategories()
+			return getAllCategories({ populate: true })
 		}, 'getAllCategories')
 	}, [])
 

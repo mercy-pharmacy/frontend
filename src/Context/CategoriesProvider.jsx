@@ -16,9 +16,15 @@ const CategoriesProvider = ({ children }) => {
 	const [lightboxOpen, setLightboxOpen] = useState(false)
 	const [lightboxIndex, setLightboxIndex] = useState(0)
 
-	function getAllCategories(callback) {
+	function getAllCategories(paramsQuery, callback) {
 		return asyncHandler(async () => {
-			const { data } = await axios.get(`/categories`)
+			let params = {}
+			if (Object.keys(paramsQuery).length > 0) {
+				params = { ...paramsQuery }
+			}
+			const { data } = await axios.get(`/categories`, {
+				params,
+			})
 			if (data.message == 'success') {
 				setCategories(data.categories)
 				callback && callback(data)
@@ -97,8 +103,7 @@ const CategoriesProvider = ({ children }) => {
 				lightboxIndex,
 				setLightboxIndex,
 				lightboxOpen,
-				setLightboxOpen
-
+				setLightboxOpen,
 			}}
 		>
 			{children}
@@ -122,7 +127,7 @@ export const useCategoriesContext = () => {
 		lightboxIndex,
 		setLightboxIndex,
 		lightboxOpen,
-		setLightboxOpen
+		setLightboxOpen,
 	} = useContext(CategoriesContext)
 	return {
 		categories,
@@ -137,6 +142,6 @@ export const useCategoriesContext = () => {
 		lightboxIndex,
 		setLightboxIndex,
 		lightboxOpen,
-		setLightboxOpen
+		setLightboxOpen,
 	}
 }

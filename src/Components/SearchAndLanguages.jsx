@@ -85,7 +85,7 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 						/>
 						{/* search results */}
 						<motion.div
-							variants={{ hidden: { opacity: 0, y: 200 }, visible: { opacity: 1, y: 0 } }}
+							variants={{ hidden: { opacity: 0, y: 200, pointerEvents: 'none' }, visible: { opacity: 1, y: 0 } }}
 							initial={'hidden'}
 							animate={showSearchResult ? 'visible' : 'hidden'}
 							className={`absolute max-md:top-[110%] max-md:left-0 max-md:right-0 md:w-[400px] ${

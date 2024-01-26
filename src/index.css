@@ -18,6 +18,9 @@
 html {
   scroll-behavior: smooth;
 }
+.min-page-height {
+  min-height: calc(100vh - 60px);
+}
 .dir-rtl {
   direction: rtl;
 }

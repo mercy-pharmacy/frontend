@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { socials } from '../constants/data'
+import useClickOutside from '../hooks/useClickOutside'
 
 const Contact = () => {
 	const {
@@ -60,23 +62,11 @@ const Contact = () => {
 									key={i}
 									className="max-md:w-full"
 								>
-									<Link
-										to={link}
-										className="flex flex-col items-center gap-2 group max-md:flex-row max-md:justify-center max-md:border max-md:w-fit max-md:mx-auto max-md:p-3 max-md:rounded-lg max-md:border-[--main-color] max-md:min-w-[200px]"
-										target="_blank"
-									>
-										<Icon
-											size={50}
-											color="var(--main-color)"
-											className="transition-all group-hover:!text-[--second-color]"
-										/>
-										<p
-											className="text-[--main-color]  font-semibold max-md:
-										flex-1"
-										>
-											{title}
-										</p>
-									</Link>
+									{!item.children ? (
+										<LinkWithOutChildren icon={Icon} link={link} title={title} />
+									) : (
+										<LinkWithChildren children={item.children} icon={Icon} title={title} />
+									)}
 								</motion.div>
 							)
 						})}
@@ -110,3 +100,72 @@ const Contact = () => {
 }
 
 export default Contact
+
+const LinkWithOutChildren = ({ link, title, icon: Icon }) => {
+	return (
+		<Link
+			to={link}
+			className="flex flex-col items-center gap-2 group max-md:flex-row max-md:justify-center max-md:border max-md:w-fit max-md:mx-auto max-md:p-3 max-md:rounded-lg max-md:border-[--main-color] max-md:min-w-[200px]"
+			target="_blank"
+		>
+			<Icon
+				size={50}
+				color="var(--main-color)"
+				className="transition-all group-hover:!text-[--second-color]"
+			/>
+			<p className="text-[--main-color]  font-semibold max-md:flex-1">{title}</p>
+		</Link>
+	)
+}
+
+const LinkWithChildren = ({ title, icon: Icon, children }) => {
+	const [show, setShow] = useState(false)
+	const toggle = () => setShow(prev => !prev)
+	const { ref } = useClickOutside(() => setShow(false))
+
+	return (
+		<div
+			ref={ref}
+			className="flex flex-col items-center gap-2 group max-md:flex-row max-md:justify-center max-md:border max-md:w-fit max-md:mx-auto max-md:p-3 max-md:rounded-lg max-md:border-[--main-color] max-md:min-w-[200px] relative cursor-pointer"
+			onClick={toggle}
+		>
+			<Icon
+				size={50}
+				color="var(--main-color)"
+				className="transition-all group-hover:!text-[--second-color]"
+			/>
+			<p className="text-[--main-color] font-semibold max-md:flex-1">{title}</p>
+
+			{/* children list */}
+			{show && (
+				<motion.ul
+					initial={{ opacity: 0, y: -100 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.3 }}
+					className="absolute top-[105%] w-full bg-[--main-color] p-2 rounded-md z-40 md:min-w-[200px] flex flex-col gap-2"
+				>
+					{children.map((item, i) => {
+						const { title, link } = item
+						return (
+							<motion.li
+								initial={{ opacity: 0, x: -100 }}
+								animate={{ opacity: 1, x: 0 }}
+								transition={{ delay: (0.1 + i + 1) * 0.1 }}
+								key={i}
+								className="text-center"
+							>
+								<Link
+									to={link}
+									target="_blank"
+									className="p-2 text-white w-full h-full block font-medium  max-md:text-sm"
+								>
+									{title}
+								</Link>
+							</motion.li>
+						)
+					})}
+				</motion.ul>
+			)}
+		</div>
+	)
+}

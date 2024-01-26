@@ -14,7 +14,7 @@ const Products = () => {
 		i18n: { language },
 	} = useTranslation()
 	useEffect(() => {
-		withLoading(() => getAllCategories(), 'getAllCategories')
+		withLoading(() => getAllCategories({}), 'getAllCategories')
 	}, [])
 
 	if (loading.getAllCategories === true)

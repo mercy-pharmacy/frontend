@@ -1,15 +1,15 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import App from './App.jsx'
 import AuthProvider from './Context/AuthProvider.jsx'
 import CategoriesProvider from './Context/CategoriesProvider.jsx'
 import LoadingProvider from './Context/LoadingProvider.jsx'
-import SubcategoriesProvider from './Context/SubcategoriesProvider.jsx'
 import ProductsProvider from './Context/ProductsProvider.jsx'
-import './index.css'
+import SubcategoriesProvider from './Context/SubcategoriesProvider.jsx'
 import './i18n.js'
+import './index.css'
 
 axios.defaults.headers = {
 	...axios.defaults.headers,

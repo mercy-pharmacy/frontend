@@ -12,7 +12,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { useCategoriesContext } from '../Context/CategoriesProvider'
 import { useLoadingContext } from '../Context/LoadingProvider'
 import { translate } from '../services/translate'
-import useClickOutside from '../hooks/useClickOutside'
 
 const Category = () => {
 	const { id } = useParams()
