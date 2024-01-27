@@ -27,14 +27,14 @@ const Home = () => {
 		>
 			{/* Layout */}
 			<div
-				className="mx-auto max-w-[1600px] flex flex-row max-md:flex-col-reverse max-md:justify-end items-stretch "
+				className="mx-auto max-w-[1600px] flex flex-row max-md:flex-col-reverse max-md:justify-end items-stretch"
 				style={{
 					height: 'calc(100vh - 60px)',
 				}}
 			>
 				{/* Intro */}
 				<div
-					className={`max-md:flex-1 max-md:py-5 max-md:h-full md:flex-[2] flex flex-col gap-9 max-md:gap-5 items-center justify-center text-[--main-color] text-center ${
+					className={`max-md:flex-1 max-md:py-10 max-md:h-full md:flex-[2] flex flex-col gap-9 max-md:gap-5 items-center justify-center text-[--main-color] text-center ${
 						language == 'en' ? 'md:border-r md:mr-2' : 'md:border-l md:ml-2'
 					}   md:border-[--main-color]  md:px-10 relative`}
 				>

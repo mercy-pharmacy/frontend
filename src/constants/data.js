@@ -16,12 +16,12 @@ export const socials = [
 		title: 'Instagram',
 		children: [
 			{
-				link: 'https://www.instagram.com/mercy.pharm.palestine/?igsh=MTlremo2N20wdDV5dg%3D%3D',
-				title: 'Instagram - Palestine',
-			},
-			{
 				link: 'https://www.instagram.com/mercypharm_italy/?igsh=a2pucGxhaXE1YWJn',
 				title: 'Instagram - Italy',
+			},
+			{
+				link: 'https://www.instagram.com/mercy.pharm.palestine/?igsh=MTlremo2N20wdDV5dg%3D%3D',
+				title: 'Instagram - Palestine',
 			},
 		],
 	},
@@ -30,12 +30,12 @@ export const socials = [
 		title: 'Facebook',
 		children: [
 			{
-				link: 'https://www.facebook.com/mercypharmpalestine?mibextid=LQQJ4d',
-				title: 'Facebook - Palestine',
-			},
-			{
 				link: 'https://www.facebook.com/people/Mercy-Pharm-Italy/61555671480547/?mibextid=hu50Ix',
 				title: 'Facebook - Italy',
+			},
+			{
+				link: 'https://www.facebook.com/mercypharmpalestine?mibextid=LQQJ4d',
+				title: 'Facebook - Palestine',
 			},
 		],
 	},

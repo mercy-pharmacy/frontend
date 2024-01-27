@@ -1,7 +1,10 @@
 {
     "translation": {
-        "links": "Links",
-        "socials": "Socials",
+        "footer": {
+            "links": "Explore",
+            "socials": "Follow Us",
+            "our-products": "Products"
+        },
         "navlinks": {
             "home": "Home",
             "products": "Products",

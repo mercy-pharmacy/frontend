@@ -1,7 +1,10 @@
 {
     "translation": {
-        "links": "روابط",
-        "social": "تواصل معنا",
+        "footer": {
+            "links": "اكتشف",
+            "socials": "تابعنا",
+            "our-products": "منتجاتنا"
+        },
         "navlinks": {
             "home": "الرئيسية",
             "products": "المنتجات",
