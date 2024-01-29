@@ -29,14 +29,18 @@ const Footer = () => {
 	}, [])
 
 	return (
-		<footer className="text-[--main-color] py-4 border-t-[3px] border-[--main-color] bg-green-50 max-md:text-sm">
+		<footer
+			dir={language == 'ar' ? 'rtl' : 'ltr'}
+			className="text-[--main-color] py-4 border-t-[3px] border-[--main-color] max-md:text-sm"
+		>
 			<div className="max-container">
 				{/* footer wrapper */}
-				<div className="flex items-center justify-between max-md:justify-center max-md:gap-4 flex-wrap w-full mb-4 ">
-					<div className="px-5 max-md:mx-auto max-md:order-3 max-md:w-full flex flex-col items-center justify-center">
+				<div className="flex items-start justify-between max-md:justify-center max-md:gap-4 flex-wrap w-full mb-4 ">
+					<div className="px-5 max-md:mx-auto max-md:w-full flex flex-col items-center md:items-start justify-center">
 						<img src={logo} alt="logo" className="w-36 mb-4" />
-						<SocialIcons />
+						<p className="text-xl max-w-xs hidden md:block">{t('footer.about')}</p>
 					</div>
+
 					<FooterColumn title={t('footer.links')}>
 						<ul className="max-md:text-center">
 							<li>
@@ -70,16 +74,16 @@ const Footer = () => {
 							<ul className="max-md:text-center">
 								{footerCategories?.map((category, i) => (
 									<li key={category._id}>
-										<Link
-											to={`/category/${category._id}`}
-											className="text-gray-500 hover:text-gray-950 transition-all"
-										>
+										<Link to={`/category/${category._id}`} className="text-gray-500 hover:text-gray-950 transition-all">
 											{translate(language, category.name_en, category.name_ar)}
 										</Link>
 									</li>
 								))}
 							</ul>
 						)}
+					</FooterColumn>
+					<FooterColumn title={t('footer.socials')}>
+						<SocialIcons />
 					</FooterColumn>
 				</div>
 				{/* copy right */}
@@ -92,9 +96,12 @@ const Footer = () => {
 }
 
 const FooterColumn = ({ title, children }) => {
+	if (!title) {
+		return <div className="flex flex-col gap-4">{children}</div>
+	}
 	return (
 		<div className="flex flex-col gap-4 px-5">
-			<p className="text-3xl max-md:text-xl font-bold relative p-1 w-fit whitespace-nowrap max-md:mx-auto">
+			<p className="text-xl max-md:text-xl font-bold relative p-1 w-fit whitespace-nowrap max-md:mx-auto">
 				{title}
 				<img
 					src="/images/basic/line.svg"
@@ -118,9 +125,9 @@ const SocialIcons = () => {
 						to={link}
 						target="_blank"
 						key={i}
-						className="p-2 rounded border border-[--main-color] group hover:bg-[--main-color] transition-all"
+						className="p-2 rounded-full bg-[#a5c8a6]  group hover:bg-[--main-color] transition-all"
 					>
-						<Icon className="text-2xl max-md:text-lg text-[--main-color] group-hover:text-white transition-all" />
+						<Icon className="text-xl max-md:text-lg text-[--main-color] group-hover:text-white transition-all" />
 					</Link>
 				)
 			})}
@@ -131,13 +138,10 @@ const WithChildren = ({ item }) => {
 	const [show, setShow] = useState(false)
 	const { ref } = useClickOutside(() => setShow(false))
 	return (
-		<div
-			className="relative p-2 rounded border border-[--main-color] group hover:bg-[--main-color] transition-all"
-			ref={ref}
-		>
+		<div className="relative p-2 rounded-full bg-[#a5c8a6] group hover:bg-[--main-color] transition-all" ref={ref}>
 			<item.icon
 				onClick={() => setShow(prev => !prev)}
-				className="text-2xl max-md:text-lg cursor-pointer text-[--main-color] group-hover:text-white transition-all"
+				className="text-xl max-md:text-lg cursor-pointer text-[--main-color] group-hover:text-white transition-all"
 			/>
 			{show && (
 				<motion.div
