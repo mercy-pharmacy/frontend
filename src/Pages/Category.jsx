@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/grid'
@@ -18,19 +18,27 @@ const Category = () => {
 	const { getCategory, currentCategory } = useCategoriesContext()
 	const { withLoading, loading } = useLoadingContext()
 	const { subcategories } = currentCategory
+	const location = useLocation()
 	const {
 		t,
 		i18n: { language },
 	} = useTranslation()
 
 	useEffect(() => {
-		withLoading(() => getCategory(id), 'getCategory')
+		withLoading(() => {
+			getCategory(id)
+		}, 'getCategory')
 	}, [id])
 
+	useEffect(() => {
+		const fragmentIdentifier = location.hash.substring(1) // Remove the '#' from the hash
+		if (fragmentIdentifier) {
+			const targetElement = document.getElementById(fragmentIdentifier)
+			if (targetElement) targetElement.scrollIntoView({ block: 'end', behavior: 'smooth', inline: 'end' })
+		}
+	}, [currentCategory, location.hash])
 	if (loading.getCategory === true)
-		return (
-			<div className="mt-8 mx-auto rounded-full w-10 h-10 border-r-2 border-black animate-spin"></div>
-		)
+		return <div className="mt-8 mx-auto rounded-full w-10 h-10 border-r-2 border-black animate-spin"></div>
 	else if (loading.getCategory == undefined) return null
 
 	return (
@@ -83,7 +91,7 @@ const Subcategory = ({ subcategory, index }) => {
 	} = useTranslation()
 	const othersCondition = subcategory?.name_en?.trim() == 'others'
 	return (
-		<div className="my-6 relative">
+		<div className="my-6 relative" id={subcategory?._id}>
 			<h2
 				className={`mb-2 text-3xl md:text-4xl font-semibold  text-center text-[--main-color] w-fit mx-auto relative pb-3 ${
 					othersCondition && 'hidden'
@@ -108,7 +116,20 @@ const Subcategory = ({ subcategory, index }) => {
 }
 
 const SubProducts = ({ subcategory, othersCondition }) => {
+	const { hash } = useLocation()
 	const matchedLength = subcategory?.products?.length > 3
+	const [swiper, setSwiper] = useState(null)
+
+	const fragmentIdentifier = hash.substring(1)
+	useEffect(() => {
+		if (fragmentIdentifier && swiper) {
+			const targetElement = document.getElementById(fragmentIdentifier)
+			if (targetElement) {
+				const productIndex = Array.from(targetElement.parentNode.children).indexOf(targetElement)
+				swiper.slideTo(productIndex, 100, false)
+			}
+		}
+	}, [hash, swiper])
 
 	if (othersCondition) {
 		return (
@@ -123,53 +144,56 @@ const SubProducts = ({ subcategory, othersCondition }) => {
 	}
 
 	return (
-		<>
-			<Swiper
-				modules={[Navigation, Pagination, EffectFade, EffectCoverflow, Grid, Zoom]}
-				navigation={true}
-				// centeredSlides={matchedLength}
-				dir="ltr"
-				className="p-4 pb-12 items-stretch"
-				grabCursor={true}
-				effect="coverflow"
-				zoom={{ toggle: true, maxRatio: 3 }}
-				breakpoints={{
-					0: { spaceBetween: 20, slidesPerView: 1, loop: false, centeredSlides: false },
-					480: { spaceBetween: 20, slidesPerView: 'auto', loop: false, centeredSlides: false },
-					768: {
-						spaceBetween: matchedLength ? 50 : 20,
-						slidesPerView: 'auto',
-						centeredSlides: matchedLength,
-						loop: matchedLength,
-					},
-					992: {
-						spaceBetween: matchedLength ? 50 : 20,
-						slidesPerView: 3,
-						loop: matchedLength,
-						centeredSlides: matchedLength,
-					},
-				}}
-				coverflowEffect={
-					matchedLength
-						? {
-								rotate: 0,
-								stretch: 0,
-								depth: 70,
-								modifier: 1.5,
-								slideShadows: false,
-						  }
-						: false
-				}
-			>
-				{subcategory?.products
-					?.sort((a, b) => b.sort_order - a.sort_order)
-					?.map((pro, i) => (
-						<SwiperSlide key={pro._id} className="w-[280px]" id={pro._id}>
-							<Product index={i} product={pro} />
-						</SwiperSlide>
-					))}
-			</Swiper>
-		</>
+		<Swiper
+			modules={[Navigation, Pagination, EffectFade, EffectCoverflow, Grid, Zoom]}
+			navigation={true}
+			onSwiper={s => setSwiper(s)}
+			// centeredSlides={matchedLength}
+			dir="ltr"
+			className="p-4 pb-12 items-stretch"
+			grabCursor={true}
+			effect="coverflow"
+			zoom={{ toggle: true, maxRatio: 3 }}
+			breakpoints={{
+				0: { spaceBetween: 20, slidesPerView: 1, loop: false, centeredSlides: false },
+				480: { spaceBetween: 20, slidesPerView: 'auto', loop: false, centeredSlides: false },
+				768: {
+					spaceBetween: matchedLength ? 50 : 20,
+					slidesPerView: 'auto',
+					centeredSlides: matchedLength,
+					loop: matchedLength,
+				},
+				992: {
+					spaceBetween: matchedLength ? 50 : 20,
+					slidesPerView: 3,
+					loop: matchedLength,
+					centeredSlides: matchedLength,
+				},
+			}}
+			coverflowEffect={
+				matchedLength
+					? {
+							rotate: 0,
+							stretch: 0,
+							depth: 70,
+							modifier: 1.5,
+							slideShadows: false,
+					  }
+					: false
+			}
+		>
+			{subcategory?.products
+				?.sort((a, b) => b.sort_order - a.sort_order)
+				?.map((pro, i) => (
+					<SwiperSlide
+						key={pro._id}
+						className={`w-[280px] ${pro._id == fragmentIdentifier && 'border border-[--main-color] rounded'}`}
+						id={pro._id}
+					>
+						<Product index={i} product={pro} />
+					</SwiperSlide>
+				))}
+		</Swiper>
 	)
 }
 
@@ -181,26 +205,24 @@ const Product = ({ product, index }) => {
 	const [hoverImage, setHoverImage] = useState(false)
 
 	return (
-		<>
-			<div className="min-h-[450px] p-4 shadow-lg rounded-md text-center bg-[--third-color]">
-				<img
-					src={product?.image?.secure_url}
-					alt="product image"
-					className={`mx-auto h-64 object-cover mb-4 rounded-md transition-all ${
-						hoverImage == true && 'scale-150'
-					}`}
-					onClick={() => setHoverImage(p => !p)}
-				/>
+		<div className={`min-h-[450px] p-4 shadow-lg rounded-md text-center bg-[--third-color] `}>
+			<img
+				src={product?.image?.secure_url}
+				alt="product image"
+				className={`cursor-pointer mx-auto h-64 object-cover mb-4 rounded-md transition-all ${
+					hoverImage == true && 'scale-150'
+				}`}
+				onClick={() => setHoverImage(p => !p)}
+			/>
 
-				<h3 className=" font-semibold text-xl text-[--main-color] pt-4 border-t border-[--main-color]">
-					{translate(language, product?.name_en, product?.name_ar)}
-				</h3>
-				{product?.description_en && (
-					<p className="text-[--main-color] text-sm  mt-5 max-w-xs mx-auto">
-						{translate(language, product?.description_en, product?.description_ar, true)}
-					</p>
-				)}
-			</div>
-		</>
+			<h3 className=" font-semibold text-xl text-[--main-color] pt-4 border-t border-[--main-color]">
+				{translate(language, product?.name_en, product?.name_ar)}
+			</h3>
+			{product?.description_en && (
+				<p className="text-[--main-color] text-sm  mt-5 max-w-xs mx-auto">
+					{translate(language, product?.description_en, product?.description_ar, true)}
+				</p>
+			)}
+		</div>
 	)
 }

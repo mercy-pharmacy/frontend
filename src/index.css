@@ -11,16 +11,20 @@
   --second-color: #7db170;
   --third-color: #e1ece1;
 }
+
 ::selection {
   background: var(--main-color);
   color: var(--second-color);
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 .min-page-height {
   min-height: calc(100vh - 60px);
 }
+
 .dir-rtl {
   direction: rtl;
 }
@@ -31,7 +35,7 @@ html {
 
 .custom-button {
   @apply bg-[--main-color] p-2 rounded text-white
- }
+}
 
 .max-container {
   @apply w-[90%] max-sm:w-[98%] max-md:w-[95%] max-lg:w-[92%] max-xl:w-[90%] mx-auto max-w-[1400px]
@@ -48,12 +52,13 @@ html {
 .mobile-nav-item {
   @apply block py-2 px-8 text-white uppercase text-sm tracking-wide
 }
+
 .mobile-nav-item.active {
   @apply bg-gradient-to-r from-[#5c8253] to-[#7db170] rounded-md
 }
 
 .form-input {
-  @apply border border-gray-300 py-2 px-4 rounded focus:outline-none focus:ring focus:ring-[--light-main-color] transition-all focus:pl-5 ;
+  @apply border border-gray-300 py-2 px-4 rounded focus:outline-none focus:ring focus:ring-[--light-main-color] transition-all focus:pl-5;
 }
 
 .categories-grid {
@@ -61,3 +66,26 @@ html {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
 }
+
+
+ 
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+ 
