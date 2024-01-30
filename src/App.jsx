@@ -44,7 +44,7 @@ function App() {
 					className={`mt-[60px] overflow-hidden min-page-height`}
 					dir={language == 'ar' ? 'rtl' : 'ltr'}
 				>
-					<ScrollWhenRefresh>
+					{/* <ScrollWhenRefresh>  */}
 						<Routes location={location} key={location.pathname}>
 							<Route index element={<Home />} />
 							<Route path="/about" element={<About />} />
@@ -71,7 +71,7 @@ function App() {
 								<Route path="update-admin" element={auth ? <UpdateAdminInfos /> : <AdminLogin />} />
 							</Route>
 						</Routes>
-					</ScrollWhenRefresh>
+					{/* </ScrollWhenRefresh> */}
 				</div>
 			</AnimatePresence>
 			<Footer />

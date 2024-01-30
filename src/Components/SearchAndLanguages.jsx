@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useTranslation } from 'react-i18next'
 import { FiSearch } from 'react-icons/fi'
@@ -18,12 +18,11 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 	} = useTranslation()
 	const { ref: showResultsRef } = useClickOutside(() => {
 		setShowSearchResult(false)
-		setSearch('')
 		setSearchResults([])
 	})
 	const { getProducts } = useProductsContext()
 	const { withLoading, loading } = useLoadingContext()
-
+	const inputRef = useRef(null)
 	const [showSearchResult, setShowSearchResult] = useState(false)
 	const [search, setSearch] = useState('')
 	const [searchResults, setSearchResults] = useState([])
@@ -33,6 +32,7 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 	const handleSearch = e => {
 		e.preventDefault()
 		if (!search) return toast.error('Please add some text.', { position: 'bottom-center' })
+		setShowSearchResult(true)
 		withLoading(
 			() =>
 				getProducts(search, data => {
@@ -52,6 +52,11 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 			handleSearch(e)
 		}
 	}
+	useEffect(() => {
+		if (showSearch && inputRef.current) {
+			inputRef.current.focus()
+		}
+	}, [showSearch])
 
 	return (
 		<div className="flex items-center gap-3">
@@ -77,6 +82,7 @@ const SearchAndLanguages = ({ setShowSearch, showSearch }) => {
 							placeholder="Search..."
 							className="form-input !px-1 !py-[0.5px] flex-1 max-md:!w-full !w-40 focus:md:!w-48 focus:!ring-1"
 							onFocus={() => setShowSearchResult(true)}
+							ref={inputRef}
 							value={search}
 							onChange={e => setSearch(e.target.value)}
 						/>

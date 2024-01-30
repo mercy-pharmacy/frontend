@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { socials } from '../constants/data'
@@ -10,6 +10,9 @@ const Contact = () => {
 		t,
 		i18n: { language },
 	} = useTranslation()
+	useEffect(() => {
+		window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+	}, [])
 	return (
 		<motion.div
 			initial={{ opacity: 0, x: 300 }}
@@ -18,10 +21,7 @@ const Contact = () => {
 			exit={{ x: '-100%', opacity: 0, transition: { duration: 0.1 } }}
 		>
 			{/* layout */}
-			<div
-				className="flex flex-col justify-between gap-10 relative"
-				style={{ minHeight: 'calc(100vh - 60px)' }}
-			>
+			<div className="flex flex-col justify-between gap-10 relative" style={{ minHeight: 'calc(100vh - 60px)' }}>
 				{/* content */}
 				<div className="max-container my-4">
 					{/* title */}
@@ -79,11 +79,7 @@ const Contact = () => {
 					transition={{ duration: 0.4, delay: 0.2 }}
 					className=" h-[200px] md:h-[300px] lg:h-[500px]"
 				>
-					<img
-						src="/images/basic/contact-bg.jpg"
-						alt=""
-						className="w-full h-full object-cover object-center"
-					/>
+					<img src="/images/basic/contact-bg.jpg" alt="" className="w-full h-full object-cover object-center" />
 				</motion.div>
 				{/* branch */}
 				<motion.img
@@ -108,11 +104,7 @@ const LinkWithOutChildren = ({ link, title, icon: Icon }) => {
 			className="flex flex-col items-center gap-2 group max-md:flex-row max-md:justify-center max-md:border max-md:w-fit max-md:mx-auto max-md:p-3 max-md:rounded-lg max-md:border-[--main-color] max-md:min-w-[200px]"
 			target="_blank"
 		>
-			<Icon
-				size={50}
-				color="var(--main-color)"
-				className="transition-all group-hover:!text-[--second-color]"
-			/>
+			<Icon size={50} color="var(--main-color)" className="transition-all group-hover:!text-[--second-color]" />
 			<p className="text-[--main-color]  font-semibold max-md:flex-1">{title}</p>
 		</Link>
 	)
@@ -129,11 +121,7 @@ const LinkWithChildren = ({ title, icon: Icon, children }) => {
 			className="flex flex-col items-center gap-2 group max-md:flex-row max-md:justify-center max-md:border max-md:w-fit max-md:mx-auto max-md:p-3 max-md:rounded-lg max-md:border-[--main-color] max-md:min-w-[200px] relative cursor-pointer"
 			onClick={toggle}
 		>
-			<Icon
-				size={50}
-				color="var(--main-color)"
-				className="transition-all group-hover:!text-[--second-color]"
-			/>
+			<Icon size={50} color="var(--main-color)" className="transition-all group-hover:!text-[--second-color]" />
 			<p className="text-[--main-color] font-semibold max-md:flex-1">{title}</p>
 
 			{/* children list */}

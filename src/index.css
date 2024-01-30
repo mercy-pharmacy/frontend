@@ -88,4 +88,21 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+.search-animation {
+  @apply transition-all;
+  animation: search-animate 2s  steps(1) infinite;
+  animation-timing-function: ease
+  /* animation-iteration-count: 4; */
+}
+@keyframes search-animate {
+  0%, 50% {
+    @apply ring-2 ring-[--second-color];
+  }
+  51%, 100% {
+    @apply ring-[1px] ring-transparent;
+  }
+}
+
  

@@ -15,12 +15,11 @@ const Products = () => {
 	} = useTranslation()
 	useEffect(() => {
 		withLoading(() => getAllCategories({}), 'getAllCategories')
+		window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
 	}, [])
 
 	if (loading.getAllCategories === true)
-		return (
-			<div className="mt-10 mx-auto rounded-full w-10 h-10 border-r-2 border-black animate-spin"></div>
-		)
+		return <div className="mt-10 mx-auto rounded-full w-10 h-10 border-r-2 border-black animate-spin"></div>
 	else if (loading.getAllCategories == undefined) return null
 
 	if (categories?.length == 0)
@@ -97,9 +96,7 @@ const Category = ({ category, index }) => {
 						isOdd ? 'border-[--main-color]' : 'border-white'
 					}`}
 				>
-					<Link to={`/category/${category?._id}`}>
-						{translate(language, category?.name_en, category?.name_ar)}
-					</Link>
+					<Link to={`/category/${category?._id}`}>{translate(language, category?.name_en, category?.name_ar)}</Link>
 				</motion.h2>
 				{/* Description */}
 				<motion.p
